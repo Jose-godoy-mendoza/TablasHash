@@ -104,20 +104,14 @@ public class frm_HashForm extends javax.swing.JFrame {
     private void btn_procesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_procesarActionPerformed
         // TODO add your handling code here:
         Funcion_Hash(txt_sintaxis.getText());
-        /*int index=0;
-        String[] lineas = txt_sintaxis.getText().split("\\r?\\n");
-        System.out.println("hay: "+lineas.length);
-        System.out.println("la linea es:  "+lineas[2]);
-        System.out.println("la linea tiene un tamaño de:  "+lineas[2].length());
         
-        System.out.println("la lineas dos posicion: "+lineas[2].indexOf(WIDTH));*/
     }//GEN-LAST:event_btn_procesarActionPerformed
     
     
     public void Funcion_Hash(String texto)
     {
         //intente separar por ; pero en donde separo por lineas, hacerlo pero en donde ya tengo las lineas separadas.
-        int CantidadLineas = 0, contador = 0, index = 0;
+        int CantidadLineas = 0, contador = 0, index = 0, codigoHash=0;
         String[] lineas = txt_sintaxis.getText().split("\\r?\\n");
         String palabras[] = new String[100];
         String secundario[]  = new String [100];
@@ -128,61 +122,34 @@ public class frm_HashForm extends javax.swing.JFrame {
             while(tokens.hasMoreTokens())
             {
                 palabras[i]=tokens.nextToken();
-                
-                //String[] separador = palabras[i].split("\\;");
-                //System.out.println("palabra: "+separador[i]);
                 StringTokenizer token2 = new StringTokenizer(palabras[i], ";", true);
                 while(token2.hasMoreTokens())
                 {
                     secundario[i]=token2.nextToken();
-                    //System.out.println("palabra: "+secundario[i]);
-                    
-                    
-                    
-                    index = lineas[i].indexOf(palabras[i]);
-                    System.out.println(" la posicion es: "+i+", " + index+ " para la palabra: " + secundario[i]);
-
-                    String fila = String.valueOf(i);
-                    String columna = String.valueOf(index);
-                    String codigo = fila+columna;
-                    int codigoHash = Integer.parseInt(codigo);
-
-                    Hash.put(codigoHash, palabras[i]);
+                        if(secundario[i].equals(";"))
+                        {
+                            index = lineas[i].length()-1;
+                            String fila = String.valueOf(i);
+                            String columna = String.valueOf(index);
+                            String codigo = fila+columna;
+                            codigoHash = Integer.parseInt(codigo);
+                            System.out.println(" la posicion es: "+i+", " + index+ " para la palabra: " + secundario[i]);
+                        }
+                        else
+                        {
+                            index = lineas[i].indexOf(palabras[i]);
+                            System.out.println(" la posicion es: "+i+", " + index+ " para la palabra: " + secundario[i]);
+                            String fila = String.valueOf(i);
+                            String columna = String.valueOf(index);
+                            String codigo = fila+columna;
+                            codigoHash = Integer.parseInt(codigo);
+                        }
+                        Hash.put(codigoHash, palabras[i]);
+                        
                 }
-                //while(token2.hasMoreTokens())
-                //{
-                
-                
-                /*index = lineas[i].indexOf(palabras[i]);
-                System.out.println(palabras[i]+" la posicion es: "+i+", " + index);
-                
-                String fila = String.valueOf(i);
-                String columna = String.valueOf(index);
-                String codigo = fila+columna;
-                int codigoHash = Integer.parseInt(codigo);
-                
-                Hash.put(codigoHash, palabras[i]);*/
-                //}
             }
         }
-        
-        
-        
-        
-        /*int longitud = texto.length(), i=0, index=0;
-        StringTokenizer tokens = new StringTokenizer(texto);
-        String[] palabras = new String[100];
-        while(tokens.hasMoreTokens())
-        {
-            palabras[i] = tokens.nextToken();
-            i++;
-            
-            
-        }
-        System.out.println("Hay: "+i+" palabras");
-        index=texto.indexOf(palabras[2]);
-        System.out.println(index);*/
-        
+        System.out.println(Hash);
     }
     
     
